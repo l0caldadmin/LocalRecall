@@ -58,8 +58,7 @@ var _ = Describe("PostgreSQL Integration", func() {
 		openaiClient = openai.NewClientWithConfig(config)
 
 		// Use PostgreSQL from docker-compose
-		//databaseURL = "postgresql://localrecall:localrecall@localhost:5432/localrecall?sslmode=disable"
-		databaseURL = "postgresql://10.0.0.179:5432/localrecall?sslmode=disable"
+		databaseURL = "postgresql://localrecall:localrecall@localhost:5432/localrecall?sslmode=disable"
 
 		// Verify PostgreSQL is accessible
 		ctx := context.Background()
