@@ -30,8 +30,14 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    entrypoint: >
+      sh -c '[ ! -s "$$PGDATA/PG_VERSION" ] && initdb -D "$$PGDATA" && echo "host all all all scram-sha-256" >> "$$PGDATA/pg_hba.conf";
+      postgres -D "$$PGDATA" & 
+      PID=$$!;
+      until pg_isready -d localrecall -U localrecall; do sleep 1; done;
+      psql -d localrecall -U localrecall -c "CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE; CREATE EXTENSION IF NOT EXISTS pgvector CASCADE; CREATE EXTENSION IF NOT EXISTS vectorscale CASCADE; CREATE EXTENSION IF NOT EXISTS pg_textsearch CASCADE;";
+      wait $$PID'
   ragserver:
-    #image: quay.io/mudler/localrecall:v0.5.2
     build:
       context: .
       dockerfile: Dockerfile
