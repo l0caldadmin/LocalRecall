@@ -11,7 +11,7 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/mudler/localrecall/rag/types"
+	"github.com/l0caldadmin/localrecall/rag/types"
 )
 
 // Client is a client for the RAG API

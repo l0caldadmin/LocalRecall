@@ -4,7 +4,7 @@ import (
 	"os"
 	"path/filepath"
 
-	. "github.com/mudler/localrecall/rag"
+	. "github.com/l0caldadmin/localrecall/rag"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )

@@ -7,8 +7,8 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/mudler/localrecall/rag"
-	"github.com/mudler/localrecall/rag/sources"
+	"github.com/l0caldadmin/localrecall/rag"
+	"github.com/l0caldadmin/localrecall/rag/sources"
 	"github.com/sashabaranov/go-openai"
 )
 

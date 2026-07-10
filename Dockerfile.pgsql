@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 
 # Set environment variables to non-interactive to prevent prompts
 ENV DEBIAN_FRONTEND=noninteractive
@@ -9,8 +9,6 @@ RUN apt-get update && \
     apt-get install -y \
         git \
         tzdata \
-        gnupg2 \
-        wget \
         curl \
         make \
         gcc \
@@ -26,8 +24,6 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 # Create postgres user with specific UID/GID (999:999) for Kubernetes compatibility
-# This must be done before installing PostgreSQL packages
-# In Kubernetes, set fsGroup: 999 in securityContext to automatically fix volume permissions
 RUN if ! getent group postgres > /dev/null 2>&1; then \
         groupadd -r postgres --gid=999; \
     else \
@@ -39,11 +35,11 @@ RUN if ! getent group postgres > /dev/null 2>&1; then \
         usermod -u 999 -g postgres postgres 2>/dev/null || true; \
     fi
 
-# Add the PostgreSQL 18 repository
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
-    sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' && \
+# Modernized: Securely download PostgreSQL signing key and add the repository
+RUN mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /etc/apt/keyrings/pgdg.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/pgdg.gpg] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt-get update
-
 
 # Install PostgreSQL 18, contrib modules, pgvector, and timescaledb
 RUN apt-get install -y \
@@ -57,10 +53,7 @@ RUN apt-get install -y \
 # Ensure PostgreSQL binaries are in the PATH
 ENV PATH="/usr/lib/postgresql/18/bin:${PATH}"
 
-# Build and install pg_textsearch extension (provides the bm25 access method).
-# Pin to a tagged release: building from the moving main branch shipped an
-# unreproducible "1.0.0-dev" whose bm25 index could wedge INSERTs on a
-# buffer-content lock and stall the whole vector store. Bump deliberately.
+# Build and install pg_textsearch extension
 ARG PG_TEXTSEARCH_VERSION=v1.3.1
 RUN git clone --depth 1 --branch "${PG_TEXTSEARCH_VERSION}" https://github.com/timescale/pg_textsearch /tmp/pg_textsearch && \
     cd /tmp/pg_textsearch && \
@@ -70,7 +63,6 @@ RUN git clone --depth 1 --branch "${PG_TEXTSEARCH_VERSION}" https://github.com/t
     rm -rf /tmp/pg_textsearch
 
 # Install Rust (required for pgvectorscale)
-# Install with default target for the build platform
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable --profile minimal && \
     . $HOME/.cargo/env && \
     rustup default stable && \
@@ -78,10 +70,7 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --de
 ENV PATH="/root/.cargo/bin:${PATH}"
 ENV CARGO_TARGET_DIR="/tmp/cargo-target"
 
-# Build and install pgvectorscale extension (provides diskann access method)
-# Note: This may fail with SIGILL errors in some Docker environments due to Rust toolchain issues.
-# If this fails, pgvectorscale can be built separately and installed, or the system will fall back to pgvector.
-# For production, use a specific version tag instead of main branch.
+# Build and install pgvectorscale extension
 RUN cd /tmp && \
     git clone --depth 1 https://github.com/timescale/pgvectorscale && \
     cd pgvectorscale/pgvectorscale && \
@@ -91,42 +80,26 @@ RUN cd /tmp && \
     cargo install --locked cargo-pgrx --version "$PGRX_VERSION" && \
     cargo pgrx init --pg18 $(which pg_config) && \
     cargo pgrx install --release && \
-    echo "Verifying vectorscale extension installation..." && \
-    ls -la /usr/lib/postgresql/18/lib/vectorscale*.so 2>/dev/null && \
-    ls -la /usr/share/postgresql/18/extension/vectorscale.control 2>/dev/null && \
-    echo "Extension files found successfully" || \
-    (echo "Warning: Some extension files not found" && \
-     find /usr/lib/postgresql/18 -name "*vectorscale*" 2>/dev/null && \
-     find /usr/share/postgresql/18 -name "*vectorscale*" 2>/dev/null) && \
     cd / && \
-    rm -rf /tmp/pgvectorscale && \
+    rm -rf /tmp/pgvectorscale \
     rm -rf /root/.cargo
-# Create directory for init scripts
-RUN mkdir -p /docker-entrypoint-initdb.d && \
-    chmod 755 /docker-entrypoint-initdb.d
 
-# Copy the initialization script
-COPY internal/init-db.sh /docker-entrypoint-initdb.d/01-init-extensions.sh
-RUN chmod +x /docker-entrypoint-initdb.d/01-init-extensions.sh
+# Create standard PostgreSQL runtime directories
+RUN mkdir -p /var/run/postgresql && chown -R postgres:postgres /var/run/postgresql
 
-# Create a script to initialize PostgreSQL if needed
-COPY internal/postgres-init.sh /usr/local/bin/postgres-init.sh
-RUN chmod +x /usr/local/bin/postgres-init.sh
-
-# Set up PostgreSQL data directory
+# Set up PostgreSQL data directory variables
 ENV PGDATA=/var/lib/postgresql/data
 ENV POSTGRES_DB=localrecall
 ENV POSTGRES_USER=localrecall
 ENV POSTGRES_PASSWORD=localrecall
+
 RUN mkdir -p "$PGDATA" && \
     chown -R postgres:postgres "$PGDATA" && \
     chmod 700 "$PGDATA"
 
-# Expose PostgreSQL port
 EXPOSE 5432
 
-# Use the standard PostgreSQL entrypoint approach
 USER postgres
 
-# Initialize database if it doesn't exist, then start PostgreSQL
-CMD ["/usr/local/bin/postgres-init.sh"]
+# Initialize the database cluster if empty, open local permissions, then boot up
+CMD ["sh", "-c", "[ ! -s \"$PGDATA/PG_VERSION\" ] && initdb -D \"$PGDATA\" && echo \"host all all all scram-sha-256\" >> \"$PGDATA/pg_hba.conf\"; postgres -D \"$PGDATA\""]

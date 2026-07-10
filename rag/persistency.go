@@ -17,9 +17,9 @@ import (
 	"github.com/klippa-app/go-pdfium"
 	"github.com/klippa-app/go-pdfium/requests"
 	"github.com/klippa-app/go-pdfium/webassembly"
-	"github.com/mudler/localrecall/pkg/chunk"
-	"github.com/mudler/localrecall/rag/engine"
-	"github.com/mudler/localrecall/rag/types"
+	"github.com/l0caldadmin/localrecall/pkg/chunk"
+	"github.com/l0caldadmin/localrecall/rag/engine"
+	"github.com/l0caldadmin/localrecall/rag/types"
 	"github.com/mudler/xlog"
 	"github.com/sashabaranov/go-openai"
 )

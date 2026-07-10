@@ -10,7 +10,7 @@ import (
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/mudler/localrecall/rag/types"
+	"github.com/l0caldadmin/localrecall/rag/types"
 	"github.com/mudler/xlog"
 	"github.com/sashabaranov/go-openai"
 )

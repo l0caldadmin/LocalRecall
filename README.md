@@ -6,10 +6,10 @@
 
 <div align="center">
   
-[![Go Report Card](https://goreportcard.com/badge/github.com/mudler/LocalRecall)](https://goreportcard.com/report/github.com/mudler/LocalRecall)
+[![Go Report Card](https://goreportcard.com/badge/github.com/l0caldadmin/localrecall)](https://goreportcard.com/report/github.com/l0caldadmin/localrecall)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub stars](https://img.shields.io/github/stars/mudler/LocalRecall)](https://github.com/mudler/LocalRecall/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/mudler/LocalRecall)](https://github.com/mudler/LocalRecall/issues)
+[![GitHub stars](https://img.shields.io/github/stars/mudler/LocalRecall)](https://github.com/l0caldadmin/localrecall/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/mudler/LocalRecall)](https://github.com/l0caldadmin/localrecall/issues)
 
 </div>
 
@@ -78,7 +78,7 @@ It can easily integrate with LocalAI, LocalAGI, and other agent frameworks, offe
 ### 📥 Clone Repository
 
 ```sh
-git clone https://github.com/mudler/LocalRecall.git
+git clone https://github.com/l0caldadmin/localrecall.git
 cd LocalRecall
 ```
 

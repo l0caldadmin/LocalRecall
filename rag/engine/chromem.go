@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"runtime"
 
-	"github.com/mudler/localrecall/rag/types"
+	"github.com/l0caldadmin/localrecall/rag/types"
 	"github.com/philippgille/chromem-go"
 	"github.com/sashabaranov/go-openai"
 )

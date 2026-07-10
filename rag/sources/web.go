@@ -22,7 +22,7 @@ func GetWebPage(url string) (string, error) {
 	}
 
 	// Set User-Agent to avoid being blocked by websites like Wikipedia
-	req.Header.Set("User-Agent", "LocalRecall/1.0 (https://github.com/mudler/localrecall)")
+	req.Header.Set("User-Agent", "LocalRecall/1.0 (https://github.com/l0caldadmin/localrecall)")
 
 	resp, err := client.Do(req)
 	if err != nil {

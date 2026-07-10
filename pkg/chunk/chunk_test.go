@@ -3,7 +3,7 @@ package chunk_test
 import (
 	"strings"
 
-	. "github.com/mudler/localrecall/pkg/chunk"
+	. "github.com/l0caldadmin/localrecall/pkg/chunk"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )

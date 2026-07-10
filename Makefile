@@ -15,7 +15,7 @@ print-version:
 	@echo "Version: ${VERSION}"
 
 build:
-	@go build -v -ldflags "-X github.com/mudler/localrecall/internal/versioning.ApplicationVersion=${VERSION}" -o ./localrecall ./
+	@go build -v -ldflags "-X github.com/l0caldadmin/localrecall/internal/versioning.ApplicationVersion=${VERSION}" -o ./localrecall ./
 
 run: build
 	@./localrecall

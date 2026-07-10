@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	. "github.com/mudler/localrecall/rag/engine"
+	. "github.com/l0caldadmin/localrecall/rag/engine"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"github.com/sashabaranov/go-openai"

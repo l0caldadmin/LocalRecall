@@ -7,7 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/mudler/localrecall/pkg/client"
+	"github.com/l0caldadmin/localrecall/pkg/client"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"github.com/sashabaranov/go-openai"

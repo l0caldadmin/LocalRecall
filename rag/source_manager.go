@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/mudler/localrecall/rag/sources"
+	"github.com/l0caldadmin/localrecall/rag/sources"
 	"github.com/mudler/xlog"
 )
 

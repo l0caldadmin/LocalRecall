@@ -5,7 +5,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/mudler/localrecall/rag/types"
+	"github.com/l0caldadmin/localrecall/rag/types"
 )
 
 // MockEngine is a simple in-memory engine for testing. It requires no
