@@ -8,7 +8,7 @@ import (
 
 	"github.com/l0caldadmin/localrecall/rag/engine"
 	"github.com/l0caldadmin/localrecall/rag/engine/localai"
-	"github.com/mudler/xlog"
+	"github.com/l0caldadmin/xlog"
 	"github.com/sashabaranov/go-openai"
 )
 

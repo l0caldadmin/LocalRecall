@@ -11,9 +11,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/labstack/echo/v4"
 	"github.com/l0caldadmin/localrecall/rag"
-	"github.com/mudler/xlog"
+	"github.com/l0caldadmin/xlog"
+	"github.com/labstack/echo/v4"
 	"github.com/sashabaranov/go-openai"
 )
 
@@ -424,31 +424,28 @@ func uploadFile(collections collectionList, fileAssets string) func(c echo.Conte
 		}
 		defer f.Close()
 
-		// Write to a temp file; collection.Store() will copy it into the
+		// Write to a unique temp directory; collection.Store() will copy it into the
 		// correct UUID subdirectory under the collection's asset dir.
-		tmpFile, err := os.CreateTemp("", "localrecall-upload-*-"+file.Filename)
+		tmpDir, err := os.MkdirTemp("", "localrecall-upload-dir-*")
+		if err != nil {
+			xlog.Error("Failed to create temp directory", err)
+			return c.JSON(http.StatusInternalServerError, errorResponse(ErrCodeInternalError, "Failed to create temp directory", err.Error()))
+		}
+		defer os.RemoveAll(tmpDir)
+
+		// Save the file with its original filename so collection.Store uses it to derive the index key.
+		uploadPath := filepath.Join(tmpDir, file.Filename)
+		out, err := os.Create(uploadPath)
 		if err != nil {
 			xlog.Error("Failed to create temp file", err)
 			return c.JSON(http.StatusInternalServerError, errorResponse(ErrCodeInternalError, "Failed to create temp file", err.Error()))
 		}
-		tmpPath := tmpFile.Name()
-		defer os.Remove(tmpPath)
-
-		_, err = io.Copy(tmpFile, f)
-		tmpFile.Close()
+		_, err = io.Copy(out, f)
+		out.Close()
 		if err != nil {
 			xlog.Error("Failed to copy file", err)
 			return c.JSON(http.StatusInternalServerError, errorResponse(ErrCodeInternalError, "Failed to copy file", err.Error()))
 		}
-
-		// Rename the temp file so its base name matches the original filename,
-		// since collection.Store uses filepath.Base to derive the index key.
-		uploadPath := filepath.Join(filepath.Dir(tmpPath), file.Filename)
-		if err := os.Rename(tmpPath, uploadPath); err != nil {
-			xlog.Error("Failed to rename temp file", err)
-			return c.JSON(http.StatusInternalServerError, errorResponse(ErrCodeInternalError, "Failed to rename temp file", err.Error()))
-		}
-		defer os.Remove(uploadPath)
 
 		now := time.Now().Format(time.RFC3339)
 

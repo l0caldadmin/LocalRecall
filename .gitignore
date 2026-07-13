@@ -5,3 +5,4 @@ state/
 assets/
 localrag
 .env
+.ignore/

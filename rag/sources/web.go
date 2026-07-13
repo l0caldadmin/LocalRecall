@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/mudler/xlog"
+	"github.com/l0caldadmin/xlog"
 	sitemap "github.com/oxffaa/gopher-parse-sitemap"
 	"jaytaylor.com/html2text"
 )

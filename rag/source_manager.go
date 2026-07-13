@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/l0caldadmin/localrecall/rag/sources"
-	"github.com/mudler/xlog"
+	"github.com/l0caldadmin/xlog"
 )
 
 // ExternalSource represents a source that needs to be periodically updated

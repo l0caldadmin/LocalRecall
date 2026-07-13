@@ -11,7 +11,7 @@ import (
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/l0caldadmin/localrecall/rag/types"
-	"github.com/mudler/xlog"
+	"github.com/l0caldadmin/xlog"
 	"github.com/sashabaranov/go-openai"
 )
 

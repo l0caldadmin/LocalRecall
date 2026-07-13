@@ -20,7 +20,7 @@ import (
 	"github.com/l0caldadmin/localrecall/pkg/chunk"
 	"github.com/l0caldadmin/localrecall/rag/engine"
 	"github.com/l0caldadmin/localrecall/rag/types"
-	"github.com/mudler/xlog"
+	"github.com/l0caldadmin/xlog"
 	"github.com/sashabaranov/go-openai"
 )
 

@@ -8,7 +8,6 @@ require (
 	github.com/jackc/pgx/v5 v5.10.0
 	github.com/klippa-app/go-pdfium v1.19.4
 	github.com/labstack/echo/v4 v4.15.4
-	github.com/mudler/xlog v0.0.6
 	github.com/onsi/ginkgo/v2 v2.29.0
 	github.com/onsi/gomega v1.41.0
 	github.com/oxffaa/gopher-parse-sitemap v0.0.0-20191021113419-005d2eb1def4
@@ -72,3 +71,6 @@ require (
 	golang.org/x/tools v0.47.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
+
+//Localdadmin Repos
+require github.com/l0caldadmin/xlog v0.0.1
