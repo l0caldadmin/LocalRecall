@@ -108,7 +108,7 @@ Build and run using Docker:
 docker build -t localrecall .
 docker run -ti -v $PWD/state:/state \
                -e COLLECTION_DB_PATH=/state/db \
-               -e EMBEDDING_MODEL=granite-embedding-107m-multilingual \
+               -e EMBEDDING_MODEL=granite-embedding-125m-english \
                -e FILE_ASSETS=/state/assets \
                -e OPENAI_API_KEY=sk-1234567890 \
                -e OPENAI_BASE_URL=http://localai:8080 \
@@ -117,7 +117,7 @@ docker run -ti -v $PWD/state:/state \
 # Or use the images already built by the CI:
 docker run -ti -v $PWD/state:/state \
                -e COLLECTION_DB_PATH=/state/db \
-               -e EMBEDDING_MODEL=granite-embedding-107m-multilingual \
+               -e EMBEDDING_MODEL=granite-embedding-125m-english \
                -e FILE_ASSETS=/state/assets \
                -e OPENAI_API_KEY=sk-1234567890 \
                -e OPENAI_BASE_URL=http://localai:8080 \
@@ -162,7 +162,7 @@ docker run -d \
 docker run -ti \
   -e DATABASE_URL=postgresql://localrecall:localrecall@localhost:5432/localrecall?sslmode=disable \
   -e VECTOR_ENGINE=postgres \
-  -e EMBEDDING_MODEL=granite-embedding-107m-multilingual \
+  -e EMBEDDING_MODEL=granite-embedding-125m-english \
   -e FILE_ASSETS=/assets \
   -e OPENAI_API_KEY=sk-1234567890 \
   -e OPENAI_BASE_URL=http://localai:8080 \
@@ -195,7 +195,7 @@ LocalRecall uses environment variables to configure its behavior. These variable
 | --------------------------- | --------------------------------------------------------------------------------------------------------------- |
 | `COLLECTION_DB_PATH`        | Path to the vector database directory where collections are stored (for Chromem engine).                        |
 | `DATABASE_URL`              | PostgreSQL connection string (required for PostgreSQL engine). Format: `postgresql://user:pass@host:port/db?sslmode=disable` |
-| `EMBEDDING_MODEL`           | Name of the embedding model used for vectorization (e.g., `granite-embedding-107m-multilingual`).               |
+| `EMBEDDING_MODEL`           | Name of the embedding model used for vectorization (e.g., `granite-embedding-125m-english`).               |
 | `FILE_ASSETS`               | Directory path to store and retrieve uploaded file assets.                                                      |
 | `OPENAI_API_KEY`            | API key for embedding services (such as LocalAI or OpenAI-compatible APIs).                                     |
 | `OPENAI_BASE_URL`           | Base URL for the embedding model API (commonly `http://localai:8080`).                                          |

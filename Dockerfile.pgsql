@@ -101,5 +101,15 @@ EXPOSE 5432
 
 USER postgres
 
-# Initialize the database cluster if empty, open local permissions, then boot up
-CMD ["sh", "-c", "[ ! -s \"$PGDATA/PG_VERSION\" ] && initdb -D \"$PGDATA\" && echo \"host all all all scram-sha-256\" >> \"$PGDATA/pg_hba.conf\"; postgres -D \"$PGDATA\""]
+CMD ["sh", "-c", "\
+    if [ ! -s \"$PGDATA/PG_VERSION\" ]; then \
+        initdb -D \"$PGDATA\" && echo \"host all all all scram-sha-256\" >> \"$PGDATA/pg_hba.conf\"; \
+    fi; \
+    postgres -D \"$PGDATA\" -c listen_addresses='*' -c shared_preload_libraries='timescaledb,pg_textsearch' & \
+    PID=$!; \
+    until pg_isready -U postgres; do sleep 1; done; \
+    psql -U postgres -c \"CREATE USER localrecall WITH SUPERUSER PASSWORD 'localrecall'\" || true; \
+    psql -U postgres -c \"CREATE DATABASE localrecall OWNER localrecall\" || true; \
+    psql -d localrecall -U postgres -c \"CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE; CREATE EXTENSION IF NOT EXISTS vector CASCADE; CREATE EXTENSION IF NOT EXISTS vectorscale CASCADE; CREATE EXTENSION IF NOT EXISTS pg_textsearch CASCADE;\"; \
+    wait $PID \
+"]

@@ -78,7 +78,7 @@ var _ = Describe("PostgreSQL Integration", func() {
 
 	It("should perform full workflow with PostgreSQL", func() {
 		// Create collection
-		db, err := NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-107m-multilingual")
+		db, err := NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-125m-english")
 		Expect(err).ToNot(HaveOccurred())
 
 		// Store documents
@@ -112,7 +112,7 @@ var _ = Describe("PostgreSQL Integration", func() {
 
 		BeforeEach(func() {
 			var err error
-			db, err = NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-107m-multilingual")
+			db, err = NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 		})
 
@@ -287,7 +287,7 @@ var _ = Describe("PostgreSQL Integration", func() {
 
 		BeforeEach(func() {
 			var err error
-			db, err = NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-107m-multilingual")
+			db, err = NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 		})
 
@@ -392,7 +392,7 @@ var _ = Describe("PostgreSQL Integration", func() {
 
 		BeforeEach(func() {
 			var err error
-			db, err = NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-107m-multilingual")
+			db, err = NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 		})
 

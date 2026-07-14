@@ -65,7 +65,7 @@ var _ = Describe("PersistentKB", func() {
 
 		// Create ChromemDB engine
 		collectionName := fmt.Sprintf("test_collection_%d", time.Now().UnixNano())
-		chromemEngine, err := NewChromemDBCollection(collectionName, tempDir, openaiClient, "granite-embedding-107m-multilingual")
+		chromemEngine, err := NewChromemDBCollection(collectionName, tempDir, openaiClient, "granite-embedding-125m-english")
 		Expect(err).ToNot(HaveOccurred())
 		engine = chromemEngine
 	})
@@ -78,13 +78,13 @@ var _ = Describe("PersistentKB", func() {
 
 	Describe("NewPersistentCollectionKB", func() {
 		It("should create a new persistent KB", func() {
-			kb, err := NewPersistentCollectionKB(stateFile, assetDir, engine, 1000, 0, openaiClient, "granite-embedding-107m-multilingual")
+			kb, err := NewPersistentCollectionKB(stateFile, assetDir, engine, 1000, 0, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 			Expect(kb).ToNot(BeNil())
 		})
 
 		It("should create state file", func() {
-			_, err := NewPersistentCollectionKB(stateFile, assetDir, engine, 1000, 0, openaiClient, "granite-embedding-107m-multilingual")
+			_, err := NewPersistentCollectionKB(stateFile, assetDir, engine, 1000, 0, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 			Expect(stateFile).To(BeAnExistingFile())
 		})
@@ -95,7 +95,7 @@ var _ = Describe("PersistentKB", func() {
 
 		BeforeEach(func() {
 			var err error
-			kb, err = NewPersistentCollectionKB(stateFile, assetDir, engine, 1000, 0, openaiClient, "granite-embedding-107m-multilingual")
+			kb, err = NewPersistentCollectionKB(stateFile, assetDir, engine, 1000, 0, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 		})
 
@@ -110,7 +110,7 @@ var _ = Describe("PersistentKB", func() {
 
 		BeforeEach(func() {
 			var err error
-			kb, err = NewPersistentCollectionKB(stateFile, assetDir, engine, 1000, 0, openaiClient, "granite-embedding-107m-multilingual")
+			kb, err = NewPersistentCollectionKB(stateFile, assetDir, engine, 1000, 0, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 		})
 
@@ -126,7 +126,7 @@ var _ = Describe("PersistentKB", func() {
 
 		BeforeEach(func() {
 			var err error
-			kb, err = NewPersistentCollectionKB(stateFile, assetDir, engine, 1000, 0, openaiClient, "granite-embedding-107m-multilingual")
+			kb, err = NewPersistentCollectionKB(stateFile, assetDir, engine, 1000, 0, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 
 			testFile = filepath.Join(tempDir, "getcontent.txt")

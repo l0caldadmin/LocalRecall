@@ -79,20 +79,20 @@ var _ = Describe("PostgresDB", func() {
 
 	Describe("NewPostgresDBCollection", func() {
 		It("should create a new PostgreSQL collection", func() {
-			db, err := NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-107m-multilingual")
+			db, err := NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 			Expect(db).ToNot(BeNil())
 		})
 
 		It("should fail with empty database URL", func() {
-			db, err := NewPostgresDBCollection(collectionName, "", openaiClient, "granite-embedding-107m-multilingual")
+			db, err := NewPostgresDBCollection(collectionName, "", openaiClient, "granite-embedding-125m-english")
 			Expect(err).To(HaveOccurred())
 			Expect(db).To(BeNil())
 			Expect(err.Error()).To(ContainSubstring("DATABASE_URL is required"))
 		})
 
 		It("should fail with invalid database URL", func() {
-			db, err := NewPostgresDBCollection(collectionName, "invalid://url", openaiClient, "granite-embedding-107m-multilingual")
+			db, err := NewPostgresDBCollection(collectionName, "invalid://url", openaiClient, "granite-embedding-125m-english")
 			Expect(err).To(HaveOccurred())
 			Expect(db).To(BeNil())
 		})
@@ -103,7 +103,7 @@ var _ = Describe("PostgresDB", func() {
 
 		BeforeEach(func() {
 			var err error
-			db, err = NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-107m-multilingual")
+			db, err = NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 		})
 
@@ -153,7 +153,7 @@ var _ = Describe("PostgresDB", func() {
 
 		BeforeEach(func() {
 			var err error
-			db, err = NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-107m-multilingual")
+			db, err = NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 		})
 
@@ -178,7 +178,7 @@ var _ = Describe("PostgresDB", func() {
 
 		BeforeEach(func() {
 			var err error
-			db, err = NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-107m-multilingual")
+			db, err = NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 		})
 
@@ -205,7 +205,7 @@ var _ = Describe("PostgresDB", func() {
 
 		BeforeEach(func() {
 			var err error
-			db, err = NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-107m-multilingual")
+			db, err = NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 		})
 
@@ -241,7 +241,7 @@ var _ = Describe("PostgresDB", func() {
 
 		BeforeEach(func() {
 			var err error
-			db, err = NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-107m-multilingual")
+			db, err = NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 		})
 
@@ -268,7 +268,7 @@ var _ = Describe("PostgresDB", func() {
 
 		BeforeEach(func() {
 			var err error
-			db, err = NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-107m-multilingual")
+			db, err = NewPostgresDBCollection(collectionName, databaseURL, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 		})
 

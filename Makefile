@@ -9,7 +9,7 @@ IMAGE?=quay.io/mudler/localrecall:latest
 # harness must wait for it to actually answer before running specs (see
 # wait-localai), otherwise the first embedding call races the download and the
 # whole suite fails with "model not found".
-EMBEDDING_MODEL?=granite-embedding-107m-multilingual
+EMBEDDING_MODEL?=granite-embedding-125m-english
 
 print-version:
 	@echo "Version: ${VERSION}"

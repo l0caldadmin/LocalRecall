@@ -11,7 +11,7 @@ const (
 	TestCollection = "foo"
 
 	// EmbeddingModel is the model used for embeddings in tests
-	EmbeddingModel = "granite-embedding-107m-multilingual"
+	EmbeddingModel = "granite-embedding-125m-english"
 
 	// DefaultChunkSize is the default chunk size used in tests
 	DefaultChunkSize = 1000

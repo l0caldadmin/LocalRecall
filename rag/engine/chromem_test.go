@@ -67,13 +67,13 @@ var _ = Describe("ChromemDB", func() {
 
 	Describe("NewChromemDBCollection", func() {
 		It("should create a new ChromemDB collection", func() {
-			db, err := NewChromemDBCollection(collectionName, tempDir, openaiClient, "granite-embedding-107m-multilingual")
+			db, err := NewChromemDBCollection(collectionName, tempDir, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 			Expect(db).ToNot(BeNil())
 		})
 
 		It("should create collection in specified directory", func() {
-			db, err := NewChromemDBCollection(collectionName, tempDir, openaiClient, "granite-embedding-107m-multilingual")
+			db, err := NewChromemDBCollection(collectionName, tempDir, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 			Expect(db).ToNot(BeNil())
 
@@ -87,7 +87,7 @@ var _ = Describe("ChromemDB", func() {
 
 		BeforeEach(func() {
 			var err error
-			db, err = NewChromemDBCollection(collectionName, tempDir, openaiClient, "granite-embedding-107m-multilingual")
+			db, err = NewChromemDBCollection(collectionName, tempDir, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 		})
 
@@ -136,7 +136,7 @@ var _ = Describe("ChromemDB", func() {
 
 		BeforeEach(func() {
 			var err error
-			db, err = NewChromemDBCollection(collectionName, tempDir, openaiClient, "granite-embedding-107m-multilingual")
+			db, err = NewChromemDBCollection(collectionName, tempDir, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 		})
 
@@ -161,7 +161,7 @@ var _ = Describe("ChromemDB", func() {
 
 		BeforeEach(func() {
 			var err error
-			db, err = NewChromemDBCollection(collectionName, tempDir, openaiClient, "granite-embedding-107m-multilingual")
+			db, err = NewChromemDBCollection(collectionName, tempDir, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 		})
 
@@ -188,7 +188,7 @@ var _ = Describe("ChromemDB", func() {
 
 		BeforeEach(func() {
 			var err error
-			db, err = NewChromemDBCollection(collectionName, tempDir, openaiClient, "granite-embedding-107m-multilingual")
+			db, err = NewChromemDBCollection(collectionName, tempDir, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 		})
 
@@ -215,7 +215,7 @@ var _ = Describe("ChromemDB", func() {
 
 		BeforeEach(func() {
 			var err error
-			db, err = NewChromemDBCollection(collectionName, tempDir, openaiClient, "granite-embedding-107m-multilingual")
+			db, err = NewChromemDBCollection(collectionName, tempDir, openaiClient, "granite-embedding-125m-english")
 			Expect(err).ToNot(HaveOccurred())
 		})
 
